@@ -42,7 +42,22 @@ fetch("newOutput.json")
     });
 
     $("#sendMassTextButton").click(() => {
-      alert("do something");
+      alert("attempting to send mass");
+
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      };
+      fetch(`/sendMessage`, requestOptions).then((res) => {
+        if (res.ok) {
+          alert("it worked!!! wow!");
+        } else {
+          alert("it didn't work!");
+        }
+      });
     });
 
     let grabWrestlersForSpecificWrestler = (
