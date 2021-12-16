@@ -16,9 +16,11 @@ app.post("/sendMessage", async (req, res) => {
   const autheToken = process.env.TWILIO_AUTH_TOKEN;
   const client = require("twilio")(accountSid, autheToken);
 
+  console.log(req.body);
+
   client.messages
     .create({
-      body: "Hey, test text message yo!",
+      body: req.body.textMessageBody,
       to: "+15169969922",
       from: "+12177491354",
     })
