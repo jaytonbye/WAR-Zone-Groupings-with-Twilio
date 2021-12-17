@@ -2,6 +2,7 @@ const express = require("express");
 const { google } = require("googleapis");
 const fs = require("fs");
 const path = require("path");
+require("dotenv").config();
 
 const outputFile = path.join(__dirname, "../public/newOutput.json");
 
@@ -57,6 +58,5 @@ app.get("/", async (req, res) => {
       }
     }
   );
+  console.log("data loaded");
 });
-
-app.listen(3000, (req, res) => console.log("listening on port 3000"));

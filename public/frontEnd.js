@@ -3,6 +3,19 @@
 // Make the button click read the 6 inputs and run the function
 
 let wrestlerArray;
+let resultArray = [];
+
+$("#loadDataButton").click(() => {
+  fetch("/getData").then((res) => {
+    if (res.ok) {
+      alert(`The data is loaded!`);
+      //I force a reload so that the page loads the new data
+      location.reload();
+    } else {
+      alert(`Something didn't work... The wrestler list is not current`);
+    }
+  });
+});
 
 fetch("newOutput.json")
   .then((result) => {
@@ -41,25 +54,6 @@ fetch("newOutput.json")
       );
     });
 
-    $("#sendMassTextButton").click(() => {
-      alert("attempting to send mass");
-
-      const requestOptions = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}),
-      };
-      fetch(`/sendMessage`, requestOptions).then((res) => {
-        if (res.ok) {
-          alert("it worked!!! wow!");
-        } else {
-          alert("it didn't work!");
-        }
-      });
-    });
-
     let grabWrestlersForSpecificWrestler = (
       weightPercentage,
       WARDifference,
@@ -67,7 +61,6 @@ fetch("newOutput.json")
       name
     ) => {
       $("#tbody").empty();
-      let resultArray = [];
       let theSpecificWrestlersWeight;
       let theSpecificWrestlersWAR;
       let theSpecificWrestlersAge;
@@ -86,14 +79,14 @@ fetch("newOutput.json")
       let minWeight =
         theSpecificWrestlersWeight -
         (theSpecificWrestlersWeight * weightPercentage) / 100;
-      console.log(minWeight);
+
       let maxWeight =
         theSpecificWrestlersWeight +
         (theSpecificWrestlersWeight * weightPercentage) / 100;
-      console.log(maxWeight);
+
       let minWAR = theSpecificWrestlersWAR - Number(WARDifference);
       let maxWAR = theSpecificWrestlersWAR + Number(WARDifference);
-      console.log(maxWAR);
+
       let minAge =
         theSpecificWrestlersAge -
         (theSpecificWrestlersAge * agePercentage) / 100;
@@ -112,7 +105,6 @@ fetch("newOutput.json")
       minAge,
       maxAge
     ) => {
-      let resultArray = [];
       for (x = 0; x < wrestlerArray.length; x++) {
         if (
           parseFloat(wrestlerArray[x][2]) >= minWeight &&
@@ -129,8 +121,37 @@ fetch("newOutput.json")
       $("#tbody").empty();
       for (x = 0; x < resultArray.length; x++) {
         $("#tbody").append(
-          `<tr><td>${resultArray[x][1]}</td><td>${resultArray[x][2]}</td><td>${resultArray[x][4]}</td><td>${resultArray[x][3]}</td></tr>`
+          `<tr><td>${resultArray[x][1]}</td><td>${resultArray[x][2]}</td><td>${resultArray[x][4]}</td><td>${resultArray[x][3]}</td><td>${resultArray[x][5]}</td><td>${resultArray[x][6]}</td></tr>`
         );
       }
     };
+
+    let requestOptions;
+    $("#sendMassTextButton").click(() => {
+      alert("attempting to send mass");
+      console.log(resultArray);
+      for (x = 0; x < resultArray.length; x++) {
+        requestOptions = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            textMessageBody: `${$("#messageToSend").val()} is being sent to ${
+              resultArray[x][1]
+            }`,
+            toPhoneNumber: `+1${resultArray[x][5]}`,
+          }),
+        };
+        fetch(`/sendMessage`, requestOptions).then((res) => {
+          if (res.ok) {
+            alert(`Text send to ${resultArray[x][1]}!`);
+          } else {
+            alert(
+              `The text was NOT sent to ${resultArray[x][1]}, something went wrong...`
+            );
+          }
+        });
+      }
+    });
   });

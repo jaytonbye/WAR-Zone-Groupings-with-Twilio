@@ -12,10 +12,36 @@
     />
   </head>
   <body>
-    <h1>
+    <h4>
+      In order to use this tool, you first need to refresh the information.
+      <br />
+
+      <ol>
+        <li>
+          Go to
+          <a
+            href="https://docs.google.com/spreadsheets/d/1coLgebSaRdBygIVRSR9IVtwfWrIm5uIaHB11_ff43zc/edit#gid=1732380386"
+            target="_blank"
+            >this google sheet</a
+          >.
+        </li>
+        <li>
+          Delete the information in cell A1, and then undo it. This will cause
+          all of the data to reload.
+        </li>
+        <li>
+          Then press this button to load the data:
+          <button id="loadDataButton" class="btn btn-primary">Load Data</button>
+        </li>
+        <li>You can now use the tool.</li>
+      </ol>
+    </h4>
+
+    <hr />
+    <h2>
       Enter the information to receive a list of wrestlers who fit the
       constraints
-    </h1>
+    </h2>
     <label>Minimum weight: </label>
     <input id="minimumWeightInput" type="number" />
     <label>Maximum weight: </label>
@@ -53,6 +79,8 @@
         <th>Weight</th>
         <th>WAR</th>
         <th>Age</th>
+        <th>Phone</th>
+        <th>Email</th>
       </thead>
       <tbody id="tbody"></tbody>
     </table>
