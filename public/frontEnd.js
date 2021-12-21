@@ -128,30 +128,35 @@ fetch("newOutput.json")
 
     let requestOptions;
     $("#sendMassTextButton").click(() => {
-      alert("attempting to send mass");
-      console.log(resultArray);
-      for (x = 0; x < resultArray.length; x++) {
-        requestOptions = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            textMessageBody: `${$("#messageToSend").val()} is being sent to ${
-              resultArray[x][1]
-            }`,
-            toPhoneNumber: `+1${resultArray[x][5]}`,
-          }),
-        };
-        fetch(`/sendMessage`, requestOptions).then((res) => {
-          if (res.ok) {
-            alert(`Text send to ${resultArray[x][1]}!`);
-          } else {
-            alert(
-              `The text was NOT sent to ${resultArray[x][1]}, something went wrong...`
-            );
-          }
-        });
+      alert("attempting to send mass text");
+      if ($("#thePassword").val() === "fakepassword") {
+        console.log(resultArray);
+        for (x = 0; x < resultArray.length; x++) {
+          requestOptions = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              textMessageBody: `${$("#messageToSend").val()}`,
+              toPhoneNumber: `+1${resultArray[x][5]}`,
+            }),
+          };
+          fetch(`/sendMessage`, requestOptions).then((res) => {
+            console.log(res.ok);
+            if (res.ok) {
+              alert(`Text send to ${resultArray[x][1]}!`);
+            } else {
+              alert(
+                `The text was NOT sent to ${resultArray[x][1]}, something went wrong...`
+              );
+            }
+          });
+        }
+      } else {
+        alert(
+          "Incorrect Password. You are not authorized to use this tool. Piss off!"
+        );
       }
     });
   });
