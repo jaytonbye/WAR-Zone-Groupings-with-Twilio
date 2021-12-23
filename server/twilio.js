@@ -38,7 +38,6 @@ const fs = require("fs");
 const outputFile = path.join(__dirname, "../public/newOutput.json");
 
 app.get("/getData", async (req, res) => {
-  console.log("hey");
   const auth = new google.auth.GoogleAuth({
     keyFile: "credentials.json",
     scopes: "https://www.googleapis.com/auth/spreadsheets",
@@ -91,4 +90,5 @@ app.get("/getData", async (req, res) => {
   console.log("data loaded");
 });
 
-app.listen(3000, (req, res) => console.log("listening on port 3000"));
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Server listening on port: ${port}`));
