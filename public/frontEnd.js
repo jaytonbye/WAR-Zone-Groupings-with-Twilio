@@ -5,6 +5,17 @@
 let wrestlerArray;
 let resultArray = [];
 
+let onChangeTextMessage = () => {
+  $("#characterCount").empty();
+  $("#characterCount").append(
+    `Character Count: ${$("#messageToSend").val().length}.`
+  );
+};
+
+$("#messageToSend").change(() => {
+  onChangeTextMessage();
+});
+
 $("#loadDataButton").click(() => {
   fetch("/getData").then((res) => {
     if (res.ok) {
