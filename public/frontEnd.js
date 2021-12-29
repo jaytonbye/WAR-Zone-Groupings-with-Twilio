@@ -43,6 +43,7 @@ fetch("newOutput.json")
     }
 
     $("#submitButton").click(() => {
+      resultArray = [];
       let minWeight = $("#minimumWeightInput").val();
       let maxWeight = $("#maximumWeightInput").val();
       let minWAR = $("#minimumWARInput").val();
@@ -53,6 +54,7 @@ fetch("newOutput.json")
     });
 
     $("#submitButtonForSpecificWrestler").click(() => {
+      resultArray = [];
       let weightPercentage = $("#percentageOfWeightInput").val();
       let WARDifference = $("#WARRangeInput").val();
       let agePercentage = $("#percentageOfAgeInput").val();
