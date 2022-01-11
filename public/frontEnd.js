@@ -144,27 +144,30 @@ fetch("newOutput.json")
       alert("attempting to send mass text");
       if ($("#thePassword").val() === "fakepassword") {
         console.log(resultArray);
-        for (x = 0; x < resultArray.length; x++) {
-          requestOptions = {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              textMessageBody: `${$("#messageToSend").val()}`,
-              toPhoneNumber: `+1${resultArray[x][5]}`,
-            }),
-          };
-          fetch(`/sendMessage`, requestOptions).then((res) => {
-            console.log(res.ok);
-            if (res.ok) {
-              alert(`Text send to ${resultArray[x][1]}!`);
-            } else {
-              alert(
-                `The text was NOT sent to ${resultArray[x][1]}, something went wrong...`
-              );
-            }
-          });
+        for (let x = 0; x < resultArray.length; x++) {
+          if (resultArray[x][5]) {
+            requestOptions = {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                textMessageBody: `${$("#messageToSend").val()}`,
+                toPhoneNumber: `+1${resultArray[x][5]}`,
+              }),
+            };
+            fetch(`/sendMessage`, requestOptions).then((res) => {
+              if (res.ok) {
+                console.log({ x });
+                //why is it x-1 instead of x?
+                console.log(`Text sent to ${resultArray[x][1]}!`);
+              } else {
+                alert(
+                  `The text was NOT sent to ${resultArray[x][1]}, something went wrong...`
+                );
+              }
+            });
+          }
         }
       } else {
         alert(
