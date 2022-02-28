@@ -169,6 +169,7 @@ fetch("newOutput.json")
             });
           }
         }
+        alert("done sending the texts (if it even worked)!");
       } else {
         alert(
           "Incorrect Password. You are not authorized to use this tool. Piss off!"
