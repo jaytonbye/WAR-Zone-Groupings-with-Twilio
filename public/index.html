@@ -12,31 +12,6 @@
     />
   </head>
   <body>
-    <h4>
-      In order to use this tool, you first need to refresh the information.
-      <br />
-
-      <ol>
-        <li>
-          Go to
-          <a
-            href="https://docs.google.com/spreadsheets/d/1coLgebSaRdBygIVRSR9IVtwfWrIm5uIaHB11_ff43zc/edit#gid=1732380386"
-            target="_blank"
-            >this google sheet</a
-          >.
-        </li>
-        <li>
-          Delete the information in cell A1, and then undo it. This will cause
-          all of the data to reload.
-        </li>
-        <li>
-          Then press this button to load the data:
-          <button id="loadDataButton" class="btn btn-primary">Load Data</button>
-        </li>
-        <li>You can now use the tool.</li>
-      </ol>
-    </h4>
-
     <hr />
     <h2>
       Enter the information to receive a list of wrestlers who fit the
@@ -46,7 +21,7 @@
     <input id="minimumWeightInput" type="number" />
     <label>Maximum weight: </label>
     <input id="maximumWeightInput" type="number" />
-    <label>Minimum WAR: </label>
+    <label>Minimum WAR (some wrestlers have negative ratings): </label>
     <input id="minimumWARInput" type="number" />
     <label>Maximum WAR: </label>
     <input id="maximumWARInput" type="number" />
@@ -100,6 +75,33 @@
     <button id="sendMassTextButton" class="btn btn-primary">
       Send text to all of the wrestlers!
     </button>
+    <hr />
+    <h2>For administrative use only (coaches can ignore this):</h2>
+    <h4>
+      In order to use this tool with the most current information, we
+      periodically need to refresh the information.
+      <br />
+
+      <ol>
+        <li>
+          Go to
+          <a
+            href="https://docs.google.com/spreadsheets/d/1coLgebSaRdBygIVRSR9IVtwfWrIm5uIaHB11_ff43zc/edit#gid=1732380386"
+            target="_blank"
+            >this google sheet</a
+          >.
+        </li>
+        <li>
+          Delete the information in cell A1, and then undo it. This will cause
+          all of the data to reload.
+        </li>
+        <li>
+          Then press this button to load the data:
+          <button id="loadDataButton" class="btn btn-primary">Load Data</button>
+        </li>
+        <li>You can now use the tool.</li>
+      </ol>
+    </h4>
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
